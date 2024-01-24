@@ -30,8 +30,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-final _textController = TextEditingController();
+var textController = TextEditingController();
 String userPost = '';
+double myDouble = 0 ;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,14 +57,15 @@ String userPost = '';
             SizedBox(
               width: 200,
               child: TextField(
-                controller: _textController,
+                controller: textController,
                 decoration: InputDecoration(
                     hintText: 'whatd on your mind?',
                     border: const OutlineInputBorder(),
                     suffixIcon: IconButton(
                         // clear text box
                         onPressed: () {
-                          _textController.clear();
+                          textController.clear();
+                          double myDouble = textController as double;
                         },
                         icon: const Icon(Icons.clear))),
               ),
@@ -73,7 +75,7 @@ String userPost = '';
                MaterialButton(
                 onPressed: () {
                   setState(() {
-                    userPost = _textController.text;
+                    userPost = textController.text;
                   });
                 },
                 color: Colors.red,
@@ -82,12 +84,13 @@ String userPost = '';
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-          
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
+            
               SizedBox(
                 width: 400,
                 height: 400,
-                child: PieChart(
+                child:
+                 PieChart(
                   PieChartData(
                     sections: [
                       PieChartSectionData(
@@ -97,9 +100,9 @@ String userPost = '';
                         radius: 50,
                       ),
                       PieChartSectionData(
-                        value: 50,
+                        value: myDouble,
                         color: Colors.red,
-                        title: '50%',
+                        title: myDouble.toString() + '%',
                         radius: 50,
                       ),
                       PieChartSectionData(
